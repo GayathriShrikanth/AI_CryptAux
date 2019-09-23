@@ -3,19 +3,14 @@ from scipy.io.wavfile import read
 import scipy.io.wavfile as wav
 import subprocess as sp
 import numpy as np
-import argparse
-import random
 import os
-import sys
-from random import shuffle
 import speechpy
-import datetime
-
+import glob
 class AudioDataset():
     def __init__(self, file_path,transform=None):
-        self.audio_dir = file_path
+        self.file_path = file_path
         self.transform = transform
-        sound_file_path = "G:/Audio/ABSOLUTELY_00001.mp4.wav"
+        sound_file_path = file_path
         try:
             with open(sound_file_path, 'rb') as f:
                 riff_size, _ = wav._read_riff_chunk(f)
@@ -27,9 +22,9 @@ class AudioDataset():
             print('file %s is corrupted!' % sound_file_path)
 
 
-    def __getitem__(self,idx):
+    def __getitem__(self):
         # Get the sound file path
-        sound_file_path = "G:/Audio/ABSOLUTELY_00001.mp4.wav"
+        sound_file_path = self.file_path
         import soundfile as sf
         signal, fs = sf.read(sound_file_path)
         num_coefficient = 40
@@ -104,15 +99,15 @@ class Compose(object):
         format_string = self.__class__.__name__ + '('
         for t in self.transforms:
             format_string += '\n'
-            format_string += '    {0}'.format(t)
+            format_string += '{0}'.format(t)
         format_string += '\n)'
         return format_string
 
 
 if __name__ == '__main__':
-    dataset = AudioDataset(file_path="G:/Audio/ABSOLUTELY_00001.mp4.wav",transform=Compose([Extract_Derivative(), Feature_Cube(cube_shape=None), ToOutput()]))
-    dataset
-    idx = 0
-    feature, label = dataset.__getitem__(idx)
-    print(feature.shape)
-    print(label)
+    for file in glob.glob("G:/Audio/*.wav"):
+        basename = os.path.basename(file)
+        dataset = AudioDataset(file_path=file,transform=Compose([Extract_Derivative(), Feature_Cube(cube_shape=None), ToOutput()]))
+        feature, label = dataset.__getitem__()
+        print(feature.shape)
+        print(label)
