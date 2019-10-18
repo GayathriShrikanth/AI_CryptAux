@@ -1,7 +1,7 @@
 # AI_CryptAu
 
 
-Real Time Visual Speech Recogn
+Real Time Visual Speech Recognition
 
 **INTRODUCTION**
 
