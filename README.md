@@ -2,7 +2,8 @@
 
 
 Real Time Visual Speech Recogn
-INTRODUCTION
+
+**INTRODUCTION**
 
 Machine learning methods have had a great impact on social progress in recent years, which promoted the rapid development of artiﬁcial intelligence technology and solved many practical problems [1]. 
 
@@ -14,7 +15,7 @@ It would thus be beneficial to automate the task of lip reading. From a mathemat
 
 It plays a vital role in human language communication and visual perception. Especially in noisy environments or VR environments, visual signals can remove redundant information, complement speech information, increase the multi-modal input dimension of immersive interaction, reduce the time and workload of learning lip language and lip movement  on humans, and improve automatic speech recognition ability. 
 
-RELATED WORK 
+**RELATED WORK** 
 
 Automating lip-reading is a complicated process, including the coarticulation effect, visual features diversity and speaker-dependency of features. The history of these issues along with some proposed solutions for them can be found in the literature. [5]
 
@@ -31,7 +32,7 @@ In (Almajai et al., 2016), a SI lip-reading system is designed, using Resource M
 of 45% and 54% are achieved with HMM and DNN application, respectively. 
 
 
-Automated lip reading: 
+**Automated lip reading:** 
 Most existing work on lipreading does not employ deep learning. Such work requires either heavy preprocessing of frames to extract image features, temporal preprocessing of frames to extract video features, or other types of handcrafted vision pipelines. The automated lip reading literature is too vast to adequately cover, so we refer the reader to Zhou et al. (2014) for an extensive review. 
 
 Goldschenetal(1997) were the ﬁrst to do visual-only sentence-level lipreading using hidden Markov models (HMMs) in a limited dataset, using hand-segmented phones. Later, Neti et al. (2000) were the ﬁrst to do sentence-level audiovisual speech recognition using an HMM combined with hand-engineered features, on the IBM ViaVoice (Neti et al., 2000) dataset. The authors improve speech recognition performance in noisy environments by fusing visual features with audio ones. The dataset contains 17111 utterances of 261 speakers for training (about 34.9 hours) and is not publicly available. As stated, their visual-only results cannot be interpreted as visual-only recognition, as they are used as rescoring of the noisy audio-only lattices. Using a similar approach, Potamianos et al. (2003) report speaker independent and speaker adapted 38.53%, 16.77% WER in the connected DIGIT corpus, which contains sentences of digits.
@@ -59,11 +60,11 @@ Table 1 summarises state-of-the-art performance in each of the main lipreading d
 Table 1: Performance of Lip Reading methods on various datasets
 
 
-PROBLEM STATEMENT
+**PROBLEM STATEMENT**
 
 Classification problem of detecting what words are being spoken out of a fixed set of known words in order to achieve as high classification accuracy as possible in the test set.
 
-OBJECTIVES
+**OBJECTIVES**
 Our objectives for automatic lip-reading recognition can be divided into five parts: 
 
 Firstly, we will extract keyframes from a sample video, use the key points of the mouth to locate the mouth area to reduce the complexity of redundant information and computational processing in successive frames and the data will be augmented in order to increase the size of the training dataset. 
@@ -74,14 +75,14 @@ After the training is done, we will validate the model using the validation set 
 
 The final part is to implement a real time lip reader using the camera in our machines which will be able to capture a video stream of the speaker uttering the word and predict the word uttered by a user using the trained lip reading model.
 
-METHODOLOGY 
+**METHODOLOGY** 
 Data Pre-processing: The data has a lot of background information which is not useful in the lip reading task. We use the face-detector module in OpenCV to detect and extract faces from the images. This is important because  our dataset is small, and we cannot afford the algorithm to waste computations on irrelevant parts of the image. After this step the size of each image becomes 90 X 90 X 3. This is not the final size of image passed for training, since different methods use different size by cropping it further as required. The cropped images are saved in separate folders called Training and Validation containing subfolders for the various class labels. Word utterances of speakers M07 and M08 were considered to be the validation set.
 Data Augmentation: Due to the small size of our dataset we perform data augmentation to artificially increase the data size [4]. Our data augmentation includes the following two modifications to the original image. While cropping, slightly move around the crop region by random number of pixels horizontally and vertically or Jitter the image by randomly increasing or decreasing the pixel values of the image by a small amount. Augmented data was generated using the ImageDataGenerator from the Keras package. The initial data set had 13726 images belonging to 10 classes in the train set and 1765 images in the validation set.
 The Model: We use the transfer learning techniques to increase the efficiency and reduce compute time.Transfer learning involves reusing a previously constructed model architecture and most of the learned weights, and then using standard training methods to learn the remaining, non-reused parameters. A fully trained neural net takes input values in an initial layer and then sequentially feeds this information forward (while simultaneously transforming it) until, crucially, some second-to-last layer has constructed a high level representation of the input that can more easily be transformed into a final output. The full training of the model involves the optimization of weight and bias terms used in each connection.The second-to-last layer is referred to as a bottleneck layer. The bottleneck layer pushes values in a regression model, or softmax probabilities in a classification model, to our final network layer. We have used the VGG16 architecture, that is pre-trained on the ImageNet dataset to find our bottleneck layer. Next we have trained a small fully-connected network (the top model) using the bottleneck features as input, with our classes as the classifier output.
 Generating Predictions: In order to predict the class of an image, we need to run it through the same pipeline as before. We first run the image through the pretrained VGG16 model (without the fully-connected layers again) and get the bottleneck predictions. We then run the bottleneck prediction through the trained top model - which we created in the previous step  and get the final classification.
 Camera for real time lip reading: The video stream is captured by the webcam using the FPS and CV2 modules in python. The frames are grabbed  from the stream and resized to have a maximum width of 400 pixels. The captured frames are preprocessed and passes through the same set of steps as performed on the validation set. A predicted word is obtained for each frame. The word having the maximum probability among a set of frames is considered to be the predicted word.
 
-ALGORITHM FLOWCHART
+**ALGORITHM FLOWCHART**
 
 
 
@@ -91,7 +92,7 @@ Figure 1: VGG-16 model architecture with modified top layer
 
 
 
-IMPLEMENTATION AND RESULT
+**IMPLEMENTATION AND RESULT**
 The MIRACL-VC1 data set [7] containing both depth and color images of fifteen speakers uttering ten words and ten phrases, ten times each was used. The sequence of images represents low quality video frames. The data set contains 3000 sequences of varying lengths of images of 640 x 480 pixels, in both color and depth representations, collected at 15 frames per second. The lengths of these sequences range from 4 to 27 image frames. The words and phrases are as follows:
 
 Words: begin, choose, connection, navigation, next, previous, start, stop, hello, web
@@ -135,14 +136,14 @@ Figure 7: Live Implementation for the words.
  
 
 
-CONCLUSION AND RECOMMENDATION
+**CONCLUSION AND RECOMMENDATION**
 
 Overall, we found that the inclusion of pre-trained facial recognition CNNs highly improved our models. The augmentation of our data proved helpful but only in the instance of unseen people. Our best model had a validation accuracy of 60%. Generally, in all models, we found it very difficult to avoid overfitting with unseen people. Thus, certain models and hyperparameters are a better fit depending on whether we are working with seen or unseen people for testing and validation. More work needs to be done to reduce overfitting even seen people for the models that include pretrained networks.
 
 Given more time and resources, the models outlined in this paper could be greatly improved.We also have yet to experiment with the number of filters in the fully connected layers. Use of LSTM or a TimeDistributed model could also be used to increase the accuracy. Additionally, accuracy improvements could be found with further hyperparameter tuning and investigation of even more optimizer types. We also would have gotten value from saliency maps. Without them it is hard to know if the model is accurately focusing on mouth data or other aspects of the input sequences.This project is easily extendible and raises the question of how to perform visual speech recognition on a much larger corpus (perhaps the entire English dictionary). How could the addition of audio data improve our ability to interpret the video as text? Is it easier to understand speech from video of a single word being spoken or entire phrases and sentences? This question could easily be investigated since the MIRACL-VC1 dataset includes phrase inputs and would be an interesting area of exploration. Additionally, most speech recognition tasks in real life require phrase inputs over single words.
 
 
-REFERENCES
+**REFERENCES**
 
 [1] Jaimes, A.; Sebe, N. Multimodal human–computer interaction: A survey. Comput. Vis. Image Underst. 2007, 108, 116–134
 
