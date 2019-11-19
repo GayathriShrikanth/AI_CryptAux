@@ -32,33 +32,6 @@ In (Almajai et al., 2016), a SI lip-reading system is designed, using Resource M
 of 45% and 54% are achieved with HMM and DNN application, respectively. 
 
 
-**Automated lip reading:** 
-Most existing work on lipreading does not employ deep learning. Such work requires either heavy preprocessing of frames to extract image features, temporal preprocessing of frames to extract video features, or other types of handcrafted vision pipelines. The automated lip reading literature is too vast to adequately cover, so we refer the reader to Zhou et al. (2014) for an extensive review. 
-
-Goldschenetal(1997) were the ﬁrst to do visual-only sentence-level lipreading using hidden Markov models (HMMs) in a limited dataset, using hand-segmented phones. Later, Neti et al. (2000) were the ﬁrst to do sentence-level audiovisual speech recognition using an HMM combined with hand-engineered features, on the IBM ViaVoice (Neti et al., 2000) dataset. The authors improve speech recognition performance in noisy environments by fusing visual features with audio ones. The dataset contains 17111 utterances of 261 speakers for training (about 34.9 hours) and is not publicly available. As stated, their visual-only results cannot be interpreted as visual-only recognition, as they are used as rescoring of the noisy audio-only lattices. Using a similar approach, Potamianos et al. (2003) report speaker independent and speaker adapted 38.53%, 16.77% WER in the connected DIGIT corpus, which contains sentences of digits.
-
-Furthermore, Gergen et al. (2016) use speaker-dependent training on an LDA-transformed version of the Discrete Cosine Transforms of the mouth regions in an HMM/GMM system. This work holds the previous state-of-the-art on the GRID corpus with a speaker-dependent accuracy of 86.4%.
-
-Classiﬁcation with deep learning: 
-In recent years, there have been several attempts to apply deep learning to lipreading. However, all of these approaches perform only word or phoneme classiﬁcation. Approaches include learning multimodal audio-visual representations (Ngiam et al., 2011; Sui et al., 2015; Ninomiya et al., 2015; Petridis & Pantic, 2016), learning visual features as part of a traditional speech-style processing pipeline for classifying words and/or phonemes (Almajai et al., 2016; Takashima et al., 2016; Noda et al., 2014; Koller et al., 2015), or combinations thereof (Takashima et al., 2016). 
-
-Chung & Zisserman (2016a) propose spatial and spatiotemporal convolutional neural networks, based on VGG, for word classiﬁcation. The architectures are evaluated on a word-level dataset BBC TV (333 and 500 classes), but, as reported, their spatiotemporal models fall short of the spatial architectures by an average of around 14%. Additionally, their models cannot handle variable sequence lengths and they do not attempt sentence-level sequence prediction. Chung & Zisserman (2016b) train an audio-visual max-margin matching model for learning pre-trained mouth features, which they use as inputs to an LSTM for 10-phrase classiﬁcation on the OuluVS2 dataset, as well as a non-lipreading task. 
-
-Wand et al. (2016) introduce LSTM recurrent neural networks for lipreading but address neither sentence-level sequence prediction nor speaker independence. 
-
-Garg et al. (2016) apply a VGG pre-trained on faces to classifying words and phrases from the MIRACL-VC1 dataset, which has only 10 words and 10 phrases. However, their best recurrent model is trained by freezing the VGG Net parameters and then training the RNN, rather than training them jointly. Their best model achieves only 56.0% word classiﬁcation accuracy, and 44.5% phrase classiﬁcation accuracy, despite both of these being 10-class classiﬁcation tasks. 
-
-Sequence prediction in speech recognition: 
-The ﬁeld of automatic speech recognition (ASR) would not be in the state it is today without modern advances in deep learning.  The connectionist temporal classiﬁcation loss (CTC) of Graves et al. (2006) drove the movement from deep learning as a component of ASR, to deep ASR systems trained end-to-end (Graves & Jaitly, 2014;Maasetal.,2015;Amodeietal.,2015). As mentioned earlier, much recent lipreading progress has mirrored early progress in ASR, but stopping short of sequence prediction. 
-
-Lipreading Datasets: 
-Lipreading datasets (AVICar, AVLetters, AVLetters2, BBC TV, CUAVE, OuluVS1, OuluVS2) are plentiful (Zhou et al., 2014; Chung & Zisserman, 2016a). A popular dataset is the Lip Reading in the Wild Dataset which consists of up to 1000 utterances of 500 different words, spoken by hundreds of different speakers. All videos are 29 frames (1.16 seconds) in length, and the word occurs in the middle of the video. The only problem with such datasets is that they only contain single words or are too small. One exception is the GRID corpus (Cookeetal.,2006),which has audio and video recordings of 34 speakers who produced 1000 sentences each, for a total of 28 hours across 34000 sentences.
-
-Table 1 summarises state-of-the-art performance in each of the main lipreading datasets. The size column represents the number of utterances used by the authors for training. Although the GRID corpus contains entire sentences, Gergen et al. (2016)C consider only the simpler case of predicting isolated words. [6]
-
-
-Table 1: Performance of Lip Reading methods on various datasets
-
 
 **PROBLEM STATEMENT**
 
@@ -84,7 +57,7 @@ Camera for real time lip reading: The video stream is captured by the webcam usi
 
 **ALGORITHM FLOWCHART**
 
-
+![alt test](/pictures/vgg)
 
 Figure 1: VGG-16 model architecture with modified top layer
 
