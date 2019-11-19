@@ -38,6 +38,7 @@ of 45% and 54% are achieved with HMM and DNN application, respectively.
 Classification problem of detecting what words are being spoken out of a fixed set of known words in order to achieve as high classification accuracy as possible in the test set.
 
 **OBJECTIVES**
+
 Our objectives for automatic lip-reading recognition can be divided into five parts: 
 
 Firstly, we will extract keyframes from a sample video, use the key points of the mouth to locate the mouth area to reduce the complexity of redundant information and computational processing in successive frames and the data will be augmented in order to increase the size of the training dataset. 
@@ -49,6 +50,7 @@ After the training is done, we will validate the model using the validation set 
 The final part is to implement a real time lip reader using the camera in our machines which will be able to capture a video stream of the speaker uttering the word and predict the word uttered by a user using the trained lip reading model.
 
 **METHODOLOGY** 
+
 Data Pre-processing: The data has a lot of background information which is not useful in the lip reading task. We use the face-detector module in OpenCV to detect and extract faces from the images. This is important because  our dataset is small, and we cannot afford the algorithm to waste computations on irrelevant parts of the image. After this step the size of each image becomes 90 X 90 X 3. This is not the final size of image passed for training, since different methods use different size by cropping it further as required. The cropped images are saved in separate folders called Training and Validation containing subfolders for the various class labels. Word utterances of speakers M07 and M08 were considered to be the validation set.
 Data Augmentation: Due to the small size of our dataset we perform data augmentation to artificially increase the data size [4]. Our data augmentation includes the following two modifications to the original image. While cropping, slightly move around the crop region by random number of pixels horizontally and vertically or Jitter the image by randomly increasing or decreasing the pixel values of the image by a small amount. Augmented data was generated using the ImageDataGenerator from the Keras package. The initial data set had 13726 images belonging to 10 classes in the train set and 1765 images in the validation set.
 The Model: We use the transfer learning techniques to increase the efficiency and reduce compute time.Transfer learning involves reusing a previously constructed model architecture and most of the learned weights, and then using standard training methods to learn the remaining, non-reused parameters. A fully trained neural net takes input values in an initial layer and then sequentially feeds this information forward (while simultaneously transforming it) until, crucially, some second-to-last layer has constructed a high level representation of the input that can more easily be transformed into a final output. The full training of the model involves the optimization of weight and bias terms used in each connection.The second-to-last layer is referred to as a bottleneck layer. The bottleneck layer pushes values in a regression model, or softmax probabilities in a classification model, to our final network layer. We have used the VGG16 architecture, that is pre-trained on the ImageNet dataset to find our bottleneck layer. Next we have trained a small fully-connected network (the top model) using the bottleneck features as input, with our classes as the classifier output.
@@ -66,6 +68,7 @@ Figure 1: VGG-16 model architecture with modified top layer
 
 
 **IMPLEMENTATION AND RESULT**
+
 The MIRACL-VC1 data set [7] containing both depth and color images of fifteen speakers uttering ten words and ten phrases, ten times each was used. The sequence of images represents low quality video frames. The data set contains 3000 sequences of varying lengths of images of 640 x 480 pixels, in both color and depth representations, collected at 15 frames per second. The lengths of these sequences range from 4 to 27 image frames. The words and phrases are as follows:
 
 Words: begin, choose, connection, navigation, next, previous, start, stop, hello, web
@@ -73,23 +76,12 @@ Phrases: Stop navigation, Excuse me, I am sorry, Thank you, Good bye, I love thi
  
 To utilize time and lessen the size of the data, we focused on building a classifier that can identify which word is being uttered from a sequence of images of the speaker as input. The set of phrase data and also the depth of the images for the spoken word data was ignored and classifiers were built for both seen and unseen people. Where, for seen people the model is trained on all people but some trials are saved for testing and validation. In unseen, the people in train, test and validation are exclusive. The split is thirteen people for train, one for validation, and one for test. The resulting datasets are examples for unseen. The class label distribution for the dataset is even, as each person performs the same number of trials per word.   Preprocessing was an important part of working with this dataset. First, we utilized a python facial recognition library, dlib, in conjunction with OpenCV and a pre-trained model [2] to isolate the points of facial structure in each image and crop it to only include the face of the speaker, excluding any background that could interfere with the training of the model. 
 
-
-Figure 2: (left to right) Original Input image (part of a sequence) in the MIRACL-VC dataset; OpenCV and dlib facial recognition software labelling key points on around a detected face; final cropped image.
-
-
-Figure 3: (left to right) Original Input image (part of a sequence) in the MIRACL-VC dataset; a horizontally flipped image; a jittered image. 
-
-
-Figure 4: Example full input sequence of length 5. The subject is speaking “begin”.
-
-
-Figure 5: Example full input sequence of length 10. The subject is speaking “hello”
-
 We had to limit the size of every facial crop to a 90x90x3 pixel square in order to create uniform input data sequences for the model.
 
 After fitting our model with the training dataset and running 50 epoches,which takes about 30 minutes we obtain a training accuracy of 30.83% with loss as and a validation accuracy of 60.32%.
 
 
+![alt test](/pictures/Training.PNG)
 
 Figure 6: Training of the data and Loss on Training and Validation set.
 
@@ -99,14 +91,9 @@ We used accuracy as our primary metric, although we also looked at the recall ra
 We tested on both seen and unseen subjects. Results for seen subjects were relatively good, but our accuracy for unseen subjects gravitated barely above the random choice metric of 10% for all ten models. Our model is predicting “Start” for 92% of the words. We realized cross-validation could have helped mitigate this issue; a possible explanation for this result is that the person in the test set spoke faster than any other subject, and as a result, most of the words uttered by the subject are thought to be “Start”, since “Start” has perhaps the shortest pronunciation within the dataset.
 Live implementation using webcam for the word “start” gives the following output:
 
+![alt test](/pictures/output.PNG)
 
 Figure 7: Live Implementation for the words.
-
-
-	
-
-
- 
 
 
 **CONCLUSION AND RECOMMENDATION**
