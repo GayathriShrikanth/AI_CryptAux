@@ -117,3 +117,11 @@ Given more time and resources, the models outlined in this paper could be greatl
 [6] Yannis M.Assael1, Brendan Shillingford1, ShimonWhiteson, NandodeFreita, “Lipnet: End-To-End Sentence-Level Lipreading”, 2017.
 [7] Ahmed  Rekik,  Achraf  BenHamadou,  and  Walid  Mahdi.   A  new  visual speech recognition approach for RGB-D cameras.  In Image  Analysis  and Recognition - 11th International Conference, ICIAR 2014, Vilamoura, Portugal, October 22-24, 2014, Proceedings, Part II, pages 21–28, 2014.
 
+[8] MIRACL VC1 DATASET @inproceedings{RekikICIAR14,
+  author    = {Ahmed Rekik and Achraf {Ben-Hamadou} and Walid Mahdi},
+  title     = {A New Visual Speech Recognition Approach for {RGB-D} Cameras},
+  booktitle = {Image Analysis and Recognition - 11th International Conference, {ICIAR}
+               2014, Vilamoura, Portugal, October 22-24, 2014, Proceedings, Part {II}},
+  year      = {2014},
+  pages     = {21--28}
+}
