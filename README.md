@@ -57,7 +57,7 @@ Camera for real time lip reading: The video stream is captured by the webcam usi
 
 **ALGORITHM FLOWCHART**
 
-![alt test](/pictures/vgg)
+![alt test](/pictures/vgg.PNG)
 
 Figure 1: VGG-16 model architecture with modified top layer
 
