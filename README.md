@@ -13,7 +13,7 @@ Humans generally display a poor ability to lip read, hearing-impaired people ach
 
 It would thus be beneficial to automate the task of lip reading. From a mathematical point of view, it requires converting the mouth movements to a truthful representation for possible visual recognition. Experiments over many years have revealed that speech intelligibility increases if both the audio and visual information are available [3]. 
 
-It plays a vital role in human language communication and visual perception. Especially in noisy environments or VR environments, visual signals can remove redundant information, complement speech information, increase the multi-modal input dimension of immersive interaction, reduce the time and workload of learning lip language and lip movement  on humans, and improve automatic speech recognition ability. 
+It plays a vital role in human language communication and visual perception. 
 
 **PROBLEM STATEMENT**
 
