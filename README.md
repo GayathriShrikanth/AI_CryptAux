@@ -67,7 +67,7 @@ After fitting our model with the training dataset and running 50 epoches,which t
 
 Figure 6: Training of the data and Loss on Training and Validation set.
 
-We used accuracy as our primary metric, although we also looked at the recall rate of each class in the model to better understand where the errors were occurring. With 10 classes, a random baseline for this classifier is 0.1. The word “Start” has the maximum recall rate of 0.44.
+We used accuracy as our primary metric, although we also looked at the recall rate of each class in the model to better understand where the errors were occurring. The word “Start” has the maximum recall rate of 0.44.
 
 
 We tested on both seen and unseen subjects. Results for seen subjects were relatively good, but our accuracy for unseen subjects gravitated barely above the random choice metric of 10% for all ten models. Our model is predicting “Start” for 92% of the words. We realized cross-validation could have helped mitigate this issue; a possible explanation for this result is that the person in the test set spoke faster than any other subject, and as a result, most of the words uttered by the subject are thought to be “Start”, since “Start” has perhaps the shortest pronunciation within the dataset.
